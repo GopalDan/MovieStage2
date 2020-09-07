@@ -47,9 +47,12 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        Log.e(LOG_TAG, "ONCREATE");
 
         if(savedInstanceState!=null){
-           mBookmarkState =savedInstanceState.getBoolean("bookMark-key");
+            Log.e(LOG_TAG, "ONSAVEINSTANCE RECEIVED" );
+
+            mBookmarkState =savedInstanceState.getBoolean("bookMark-key");
            int color = savedInstanceState.getInt("color");
             Log.e(LOG_TAG,"Value of received Color: " +  color);
            mBookMarkButton.setBackgroundColor(color);
@@ -148,8 +151,8 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
         List<String> trailers = movieDetails.get(0);
         List<String> reviews = movieDetails.get(1);
-        Log.v(LOG_TAG, "Length of MovieDetails trailers -" + trailers.size());
-        Log.v(LOG_TAG, "Length of MovieDetails reviews-" + reviews.size());
+        Log.e(LOG_TAG, "Length of MovieDetails trailers -" + trailers.size());
+        Log.e(LOG_TAG, "Length of MovieDetails reviews-" + reviews.size());
 
         for (int i = 0; i < trailers.size(); i++) {
             mKey = trailers.get(i);
@@ -216,11 +219,13 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onSaveInstanceState(Bundle bundle, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(bundle, outPersistentState);
+        Log.e(LOG_TAG, "ONSAVEINSTANCE SAVED" );
+
         bundle.putBoolean("bookMark-key", mBookmarkState);
         ColorDrawable drawable = (ColorDrawable)mBookMarkButton.getBackground();
         int color = drawable.getColor();
-        bundle.putInt("color", color);
         Log.e(LOG_TAG,"Value of saved Color: " +  color);
-        super.onSaveInstanceState(bundle, outPersistentState);
+        bundle.putInt("color", color);
     }
 }
